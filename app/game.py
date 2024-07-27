@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from scrape import *
+from app.scrape import *
 
 class Game:
 
@@ -10,7 +10,8 @@ class Game:
 		self.link = self.get_download_links(info.links[idx])
 		self.details = self.get_game_detalis(info.links[idx])
 		self.preview = self.get_preview(info.links[idx])
-
+		self.source = info.links[idx]
+		self.idx = idx
 
 	def get_name(self, link):
 		response = requests.get(link)
@@ -47,9 +48,13 @@ class Game:
 		sibling = h3_tag.find_next_sibling()
 		while sibling and len(p_tags_list) < 4:
 			if sibling.name == 'p':
-				p_tags_list.append(sibling)
-			sibling = sibling.find_next_sibling()
-		return(p_tags_list)
+				p_tags_list.append(str(sibling))
+			sibling = sibling.find_next_sibling()		
+		details_str = ""
+		for i in  p_tags_list:			
+			details_str = f'{details_str} {i}'
+		details_str = details_str.replace("['", "").replace("']", "").replace("', '", "").replace("\\n", "").replace("\\u200d", "").replace("\\xa0", "")
+		return(details_str)
 	
 	def get_preview(self, link):
 		response = requests.get(link)
@@ -57,17 +62,3 @@ class Game:
 		image = soup.find('img', fetchpriority="high", decoding="async")
 		return(image['src'])
 	
-def main():
-	payload = str(input("enter name game : "))
-	infos = Info(payload)
-	game = []
-	for i in range(len(infos.links)):
-		print(i)
-		print(infos.links[i])
-		game.append(Game(infos, i))
-
-	for i in game:
-		print(f'{i.name} - {i.desc} - {i.link} - {i.details} - {i.preview}\n\n\n')
-
-if __name__ == '__main__':
-	main()

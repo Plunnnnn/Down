@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Down - Game Search Engine</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff;
+            color: #000;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+        h1 {
+            font-size: 5em;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .search-bar {
+            width: 80%;
+            max-width: 800px;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 2px solid #000;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .game-item {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px;
+        }
+        .game-preview {
+            width: 100%;
+            height: 200; /* Fixed height */
+            object-fit: cover; /* Ensure aspect ratio is preserved */
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .game-item h3 {
+            font-size: 1.2em;
+            margin: 0;
+            padding: 0;
+        }
+        footer {
+            width: 100%;
+            position: absolute;
+            bottom: 5px;
+            text-align: center;
+            font-size: 1em;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-content img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Down</h1>
+        <p>fast - efficient - adless</p>
+        <form method="POST" action="/">
+            <input type="text" name="search_query" class="search-bar" placeholder="Search for games..." value="{{ search_query }}">
+        </form>
+        {% if games %}
+            <div class="game-container">
+                {% for game in games %}
+                <a href="/game/{{ game.idx }}">    
+                    <div class="game-item">
+                        <img src="{{ game.preview }}" alt="{{ game.name }}" class="game-preview">
+                        <h3>{{ game.name }}</h3>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        {% elif search_query %}
+            <p>No games found. Please try another search.</p>
+        {% endif %}
+    </div>
+    <footer>
+        <div class="footer-content">
+            <span>For any inquiries: @0xBasmoussent</span>
+            <img src="../static/disc.svg" alt="Discord logo">
+        </div>
+    </footer>
+</body>
+</html>

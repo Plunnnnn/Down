@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ game.name }} - Game Details</title>
+    <style>
+        #text {
+            color: #000000;
+            font-size: 1.2em;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #aaa0a0;
+            background-image: url('{{ game.preview }}'); 
+            background-size: cover;
+            background-position: center; 
+            background-attachment: fixed; 
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #555;
+            text-align: center;
+            margin: 0 auto 20px auto;
+            max-width: 800px;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #444;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+            text-align: center;
+        }
+        .details-container {
+            margin-top: 20px;
+        }
+        .details-container p {
+            margin-bottom: 15px;
+        }
+        .details-container a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .details-container a:hover {
+            text-decoration: underline;
+        }
+        .download-links ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        .download-links li {
+            margin-bottom: 10px;
+        }
+        .download-links a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .download-links a:hover {
+            text-decoration: underline;
+        }
+        .video-container {
+            margin-top: 20px;
+        }
+        .video-container video {
+            width: 100%;
+            border-radius: 8px;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ game.name }}</h1>
+        <p><strong>{{ game.desc }}</strong></p>
+        
+        <h2>Details</h2>
+        <div class="details-container">
+            {{ game.details|safe }}
+        </div>
+
+        <h2>Download Links</h2>
+        <div class="download-links">
+            <ul>
+                {% if game.link %}
+                    {% set links = game.link %}
+                    {% if links[0] %}
+                        <li><a href="{{ links[0] }}" target="_blank">Torrent Link Download</a></li>
+                    {% endif %}
+                    {% if links[1] %}
+                        <li><a href="{{ links[1] }}" target="_blank">Direct Link Download</a></li>
+                    {% endif %}
+                    {% if links[2] %}
+                        <li><a href="{{ links[2] }}" target="_blank">Fix Online Download</a></li>
+                    {% endif %}
+                {% else %}
+                    <li>No download links available.</li>
+                {% endif %}
+            </ul>
+        </div>
+        
+        <h2>Source</h2>
+        <div class="download-links">
+            <ul>
+                <li></li><a href="{{ game.source }}" target="_blank">Source</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
