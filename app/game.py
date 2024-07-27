@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from app.scrape import *
+import threading
 
 class Game:
 
@@ -46,10 +47,11 @@ class Game:
 		h3_tag = soup.find('h3', string="Game Details")
 		p_tags_list = []
 		sibling = h3_tag.find_next_sibling()
-		while sibling and len(p_tags_list) < 4:
+		while sibling and "https://store.steampowered.com/app" not in str(sibling):
 			if sibling.name == 'p':
 				p_tags_list.append(str(sibling))
-			sibling = sibling.find_next_sibling()		
+			sibling = sibling.find_next_sibling()	
+		p_tags_list.append(str(sibling))	
 		details_str = ""
 		for i in  p_tags_list:			
 			details_str = f'{details_str} {i}'
