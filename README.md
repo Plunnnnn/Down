@@ -78,6 +78,10 @@ A brief description of your project.
 - `run.py`: Entry point for running the Flask app.
 - `requirements.txt`: Lists the Python dependencies.
 
+## Preview
+ 
+https://github.com/user-attachments/assets/757fd742-5831-440f-bedd-633c3f3b8fa9
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any changes.
