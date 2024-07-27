@@ -1,6 +1,7 @@
 # Project Name
 
-A brief description of your project.
+Down is an open-source Search Engine, it's main goal is to provide acces to cracked version of games, free of viruses, and ad.
+Even though Down try to provide safe content, user is highly invited to still becareful of the file he is downloading.
 
 ## Installation
 
